@@ -1,0 +1,47 @@
+﻿@page
+@model ValGProject.Models.Topic
+
+@{
+    Layout = "~/Views/Shared/_LayoutForUser.cshtml";
+}
+
+<h1 style="text-align:center">Create Topic</h1>
+
+@using(Html.BeginForm("Create", "Form", FormMethod.Post))
+{
+    <div style="text-align:center" class="d-flex align-items-center flex-column justify-content-center">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new {@class="form-control", @style="width:100px; height:30px; text-align:center"})
+            @Html.ValidationMessageFor(m => m.Title, "", new {@class="text-danger"})
+        </div>
+
+        &nbsp;
+        &nbsp;
+        &nbsp;
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new {@style="display:block"})
+            @Html.EditorFor(m => m.Description, new {@class="form-control", @style="display:block"})
+            @Html.ValidationMessageFor(m => m.Description, "", new {@class="text-danger"})
+        </div>
+
+        &nbsp;
+        &nbsp;
+        &nbsp;
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Creator)
+            @Html.TextBoxFor(m => m.Creator, new {@class="form-control", @style="width:100px; height:30px; text-align:center", @readonly = "readonly"})
+            @Html.ValidationMessageFor(m => m.Creator, "", new {@class="text-danger"})
+        </div>
+
+        &nbsp;
+        &nbsp;
+        &nbsp;
+
+        <button type="submit" class="btn btn-primary">Create Topic</button>
+    </div>
+
+    TempData.Keep("user");
+}

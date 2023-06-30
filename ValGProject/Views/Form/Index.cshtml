@@ -1,0 +1,66 @@
+﻿@using static ValGProject.Utility
+@model List<ValGProject.Models.Topic>
+
+@{
+    Layout = "~/Views/Shared/_LayoutForUser.cshtml";
+}
+
+<h1 style="text-align:center">Public Forum</h1>
+
+@if(Model is null || Model.Count == 0)
+{
+    <p>No topics to display</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m[0].Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m[0].Creator)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m[0].CreatonDate)
+                </th>
+                <th>
+                    @Html.DisplayName("Edit")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var topic in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => topic.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => topic.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => topic.Creator)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => topic.CreatonDate)
+                    </td>
+                    <td>
+                        @if (TempData["user"].ToString() == topic.Creator)
+                        {
+                            <p><a href="@Url.Action("Edit", "Form", new {id = topic.Id, username =  Encode(TempData["user"].ToString())})">Edit</a></p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    //string value = TempData["user"] as string;
+    TempData.Keep("user"); // retains value in TempData
+}
+
