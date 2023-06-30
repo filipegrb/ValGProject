@@ -7,7 +7,7 @@
 
 <h1 style="text-align:center">Edit Topic</h1>
 
-@using(Html.BeginForm("Edit", "Form", FormMethod.Post))
+@using (Html.BeginForm("Delete", "Form", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.CreatonDate)
@@ -16,25 +16,27 @@
         <div style="text-align:center" class="card bg-light d-flex align-items-center flex-column justify-content-center">
             <div class="form-group">
                 @Html.LabelFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Title, new {@class="form-control", @style="width:100px; height:30px; text-align:center"})
+                @Html.TextBoxFor(m => m.Title, new {@class="form-control", @style="width:100px; height:30px; text-align:center", @readonly = "readonly"})
                 @Html.ValidationMessageFor(m => m.Title, "", new {@class="text-danger"})
             </div>
 
-            &nbsp;
-            &nbsp;
-            &nbsp;
+            <br>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Description, new {@style="display:block"})
-                @Html.EditorFor(m => m.Description, new {@class="form-control", @style="display:block"})
+                @Html.EditorFor(m => m.Description, new { htmlAttributes = new {@class="form-control", @style="display:block", @readonly = "readonly"}})
                 @Html.ValidationMessageFor(m => m.Description, "", new {@class="text-danger"})
             </div>
 
-            &nbsp;
-            &nbsp;
-            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(m => m.Creator)
+                @Html.TextBoxFor(m => m.Creator, new {@class="form-control", @style="width:100px; height:30px; text-align:center", @readonly = "readonly"})
+                @Html.ValidationMessageFor(m => m.Creator, "", new {@class="text-danger"})
+            </div>
 
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <br>
+
+            <button type="submit" class="btn btn-primary">Delete Topic</button>
         </div>
     </div>
 }

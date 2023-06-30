@@ -76,5 +76,33 @@ namespace ValGProject.Controllers
 
             return View(topic);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id, string username)
+        {
+
+            Topic topic = await db.Topics.FindAsync(id);
+
+            if (topic != null && (Utility.Decode(username) != topic.Creator))
+            {
+                return RedirectToAction("Index", new { userName = Utility.Encode(username) });
+            }
+
+            return View(topic);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Topic topic)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Topics.Remove(topic);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index", new { userName = Utility.Encode(topic.Creator) });
+            }
+
+            return View(topic);
+        }
     }
 }
