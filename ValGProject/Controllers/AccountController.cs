@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
-using System.Web;
 using ValGProject.Models;
 
 namespace ValGProject.Controllers
@@ -33,7 +31,7 @@ namespace ValGProject.Controllers
             {
                 if(db.Users.Any(x => x.UserName == user.UserName && x.Password == user.Password))
                 {
-                    string s = ValGProject.Utility.Encode(user.UserName);
+                    string s = Utility.Encode(user.UserName);
                     return RedirectToAction("Index", "Form", new {userName = s});
                 }
                 else
@@ -47,17 +45,20 @@ namespace ValGProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(User user)
+        public async Task<IActionResult> Registration(User user)
         {
             if (ModelState.IsValid)
             {
-                if (db.Users.Any(x => x.UserName == user.UserName && x.Password == user.Password))
+                if (!db.Users.Any(x => x.UserName == user.UserName))
                 {
+                    db.Users.Add(user);
+                    await db.SaveChangesAsync();
+
                     return RedirectToAction("Index", "Form");
                 }
                 else
                 {
-                    ModelState.AddModelError("General", "User Name And Password combination already exists.");
+                    ModelState.AddModelError("General", "User Name already exists.");
                     return View(user);
                 }
             }
