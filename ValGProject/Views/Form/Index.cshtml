@@ -13,7 +13,7 @@
 }
 else
 {
-    <table class="table">
+    <table class="table" style="text-align:center">
         <thead>
             <tr>
                 <th>
@@ -31,6 +31,9 @@ else
                 <th>
                     @Html.DisplayName("Edit")
                 </th>
+                <th>
+                    @Html.DisplayName("Delete")
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +44,7 @@ else
                         @Html.DisplayFor(m => topic.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => topic.Description)
+                        @Html.EditorFor(m => topic.Description)
                     </td>
                     <td>
                         @Html.DisplayFor(m => topic.Creator)
@@ -55,12 +58,17 @@ else
                             <p><a href="@Url.Action("Edit", "Form", new {id = topic.Id, username =  Encode(TempData["user"].ToString())})">Edit</a></p>
                         }
                     </td>
+                    <td>
+                        @if (TempData["user"].ToString() == topic.Creator)
+                        {
+                            <p><a href="@Url.Action("Delete", "Form", new {id = topic.Id, username =  Encode(TempData["user"].ToString())})">Delete</a></p>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 
-    //string value = TempData["user"] as string;
-    TempData.Keep("user"); // retains value in TempData
+    TempData.Keep("user"); 
 }
 

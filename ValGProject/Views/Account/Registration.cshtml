@@ -6,30 +6,28 @@
 
 @using (Html.BeginForm("Registration", "Account", FormMethod.Post))
 {
-    <div style="text-align:center" class="d-flex align-items-center flex-column justify-content-center">
-        @Html.ValidationMessage("General", "", new {@class="text-danger"})
+    <div class="col-3 mx-auto">
+        <div style="text-align:center" class="card bg-light d-flex align-items-center flex-column justify-content-center">
+            @Html.ValidationMessage("General", "", new {@class="text-danger"})
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.UserName)
-            @Html.TextBoxFor(m => m.UserName, new {@class="form-control", @style="width:100px; height:30px; text-align:center"})
-            @Html.ValidationMessageFor(m => m.UserName, "", new {@class="text-danger"})
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName, new {@class="form-control", @style="width:100px; height:20px; text-align:center"})
+                @Html.ValidationMessageFor(m => m.UserName, "", new {@class="text-danger"})
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password)
+                @Html.TextBoxFor(m => m.Password, new {@class="form-control", @type="password", @style="width:100px; height:20px; text-align:center"})
+                @Html.ValidationMessageFor(m => m.Password, "", new {@class="text-danger"})
+            </div>
+
+            <br>
+
+            <button type="submit" class="btn btn-primary">Register</button>
         </div>
-
-        &nbsp;
-        &nbsp;
-        &nbsp;
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password)
-            @Html.TextBoxFor(m => m.Password, new {@class="form-control", @type="password", @style="width:100px; height:30px; text-align:center"})
-            @Html.ValidationMessageFor(m => m.Password, "", new {@class="text-danger"})
-        </div>
-
-        &nbsp;
-        &nbsp;
-        &nbsp;
-
-        <button type="submit" class="btn btn-primary">Register</button>
     </div>
 }
 
