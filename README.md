@@ -9,4 +9,6 @@ Here you also have a link for the: Home Page;Create a Topic Page;Log Out Page; D
 In the create a Topic page you'll be able to create your own topic!
 
 ## Technical
+Visual Studio Community 2022
+Framework: .net 7.0
 For the db creation I used the EntityFramework Migration (connectionString in appsettings)
