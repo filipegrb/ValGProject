@@ -1,11 +1,28 @@
 ﻿@page
 @model ValGProject.Models.Topic
 
+@section JavaScript
+{
+    @Html.Raw(ViewBag.message)
+}
+
 @{
     Layout = "~/Views/Shared/_LayoutForUser.cshtml";
 }
 
-<h1 style="text-align:center">Edit Topic</h1>
+@section scripts{
+    <script type="text/javascript">
+        function preventBack() {
+            window.history.forward();
+        }
+
+        setTimeout("preventBack()", 0);
+
+        window.onunload = function () { null };
+    </script>
+    }
+
+<h2 style="text-align:center">Delete Topic</h2>
 
 @using (Html.BeginForm("Delete", "Form", FormMethod.Post))
 {
@@ -39,4 +56,5 @@
             <button type="submit" class="btn btn-primary">Delete Topic</button>
         </div>
     </div>
+    TempData.Keep("user");
 }

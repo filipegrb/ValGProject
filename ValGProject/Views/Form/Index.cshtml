@@ -5,7 +5,19 @@
     Layout = "~/Views/Shared/_LayoutForUser.cshtml";
 }
 
-<h1 style="text-align:center">Public Forum</h1>
+@section scripts{
+    <script type="text/javascript">
+        function preventBack() {
+            window.history.forward();
+        }
+
+        setTimeout("preventBack()", 0);
+
+        window.onunload = function () { null };
+    </script>
+    }
+
+<h2 style="text-align:center">Public Forum</h2>
 
 @if(Model is null || Model.Count == 0)
 {
@@ -53,15 +65,15 @@ else
                         @Html.DisplayFor(m => topic.CreatonDate)
                     </td>
                     <td>
-                        @if (TempData["user"].ToString() == topic.Creator)
+                        @if (Decode(TempData["user"].ToString()) == topic.Creator)
                         {
-                            <p><a href="@Url.Action("Edit", "Form", new {id = topic.Id, username =  Encode(TempData["user"].ToString())})">Edit</a></p>
+                            <p><a href="@Url.Action("Edit", "Form", new {id = topic.Id/*, username =  Encode(TempData["user"].ToString())*/})">Edit</a></p>
                         }
                     </td>
                     <td>
-                        @if (TempData["user"].ToString() == topic.Creator)
+                        @if (Decode(TempData["user"].ToString()) == topic.Creator)
                         {
-                            <p><a href="@Url.Action("Delete", "Form", new {id = topic.Id, username =  Encode(TempData["user"].ToString())})">Delete</a></p>
+                            <p><a href="@Url.Action("Delete", "Form", new {id = topic.Id/*, username =  Encode(TempData["user"].ToString())*/})">Delete</a></p>
                         }
                     </td>
                 </tr>
@@ -71,4 +83,5 @@ else
 
     TempData.Keep("user"); 
 }
+
 

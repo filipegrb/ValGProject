@@ -1,0 +1,35 @@
+﻿@page
+@model ValGProject.Models.Topic
+
+@{
+    Layout = "~/Views/Shared/_LayoutForUser.cshtml";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        function preventBack() {
+            window.history.forward();
+        }
+
+        setTimeout("preventBack()", 0);
+
+        window.onunload = function () { null };
+    </script>
+    }
+
+<h2 style="text-align:center">Log Out</h2>
+
+@using (Html.BeginForm("LogOut", "Form", FormMethod.Post))
+{
+    <div class="col-3 mx-auto">
+        <div style="text-align:center" class="card bg-light d-flex align-items-center flex-column justify-content-center">
+            
+            <p>You're about to Log Out. To Confirm click button</p>
+
+            <br>
+
+            <button type="submit" class="btn btn-primary">Log Out</button>
+        </div>
+    </div>
+    TempData.Keep("user");
+}
