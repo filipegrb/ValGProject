@@ -8,5 +8,5 @@ In The Public Forum Page you can see all the topics. The ones created by you you
 Here you also have a link for the Home Page and the Create a Topic Page.
 In the create a Topic page you'll be able to create your own topic!
 
-##Technical
+## Technical
 For the db creation I used the EntityFramework Migration (connectionString in appsettings)
