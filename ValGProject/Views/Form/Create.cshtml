@@ -5,7 +5,19 @@
     Layout = "~/Views/Shared/_LayoutForUser.cshtml";
 }
 
-<h1 style="text-align:center">Create Topic</h1>
+@section scripts{
+    <script type="text/javascript">
+        function preventBack() {
+            window.history.forward();
+        }
+
+        setTimeout("preventBack()", 0);
+
+        window.onunload = function () { null };
+    </script>
+    }
+
+<h2 style="text-align:center">Create Topic</h2>
 
 @using(Html.BeginForm("Create", "Form", FormMethod.Post))
 {
@@ -17,9 +29,7 @@
                 @Html.ValidationMessageFor(m => m.Title, "", new {@class="text-danger"})
             </div>
 
-            &nbsp;
-            &nbsp;
-            &nbsp;
+            <br>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Description, new {@style="display:block"})
@@ -27,9 +37,7 @@
                 @Html.ValidationMessageFor(m => m.Description, "", new {@class="text-danger"})
             </div>
 
-            &nbsp;
-            &nbsp;
-            &nbsp;
+            <br>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Creator)
@@ -37,9 +45,7 @@
                 @Html.ValidationMessageFor(m => m.Creator, "", new {@class="text-danger"})
             </div>
 
-            &nbsp;
-            &nbsp;
-            &nbsp;
+            <br>
 
             <button type="submit" class="btn btn-primary">Create Topic</button>
         </div>
