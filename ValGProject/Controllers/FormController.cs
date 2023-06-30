@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Web;
 using ValGProject.Models;
 
 namespace ValGProject.Controllers
@@ -14,9 +13,9 @@ namespace ValGProject.Controllers
             db = context;
         }
 
-        public IActionResult Index(string userName)
+        public async Task<IActionResult> Index(string userName)
         {
-            List<Topic> topics = db.Topics.ToList();
+            List<Topic> topics = await db.Topics.ToListAsync();
             if (!string.IsNullOrEmpty(userName))
             {
                 TempData["user"] = Utility.Decode(userName);
@@ -27,7 +26,7 @@ namespace ValGProject.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            Topic topic = new Topic
+            Topic topic = new()
             {
                 Creator = TempData["user"] as string
             };
@@ -35,13 +34,13 @@ namespace ValGProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Topic topic)
+        public async Task<IActionResult> Create(Topic topic)
         {
             if(ModelState.IsValid)
             {
                 topic.CreatonDate = DateTime.Now;
                 db.Topics.Add(topic);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
 
                 return RedirectToAction("Index", new {userName = Utility.Encode(topic.Creator)});
             }
@@ -50,10 +49,10 @@ namespace ValGProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id, string username)
+        public async Task<IActionResult> Edit(int id, string username)
         {
             
-            Topic topic = db.Topics.Find(id);
+            Topic topic = await db.Topics.FindAsync(id);
 
             if(topic != null && (Utility.Decode(username) != topic.Creator))
             {
@@ -64,12 +63,12 @@ namespace ValGProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Topic topic)
+        public async Task<IActionResult> Edit(Topic topic)
         {
             if(ModelState.IsValid)
             {
                 db.Entry(topic).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
 
                 return RedirectToAction("Index", new {userName = Utility.Encode(topic.Creator)});
             }
